@@ -1,0 +1,32 @@
+<modification>
+	<id><![CDATA[@tik Add $x for free shipping]]></id>
+	<version><![CDATA[1.1]]></version>
+	<vqmver><![CDATA[2.1.7]]></vqmver>
+	<author><![CDATA[OC2PS]]></author>
+	<file name="catalog/view/theme/default/template/checkout/cart.tpl">
+		<operation>
+			<search position="replace" error="log"><![CDATA[<div class="cart-info">]]></search>
+			<add><![CDATA[<div class="cart-info">
+<?php if (isset($moneytofree)) {echo $moneytofree;} ?>]]></add>
+		</operation>
+	</file>
+	<file name="catalog/language/english/checkout/cart.php">
+		<operation>
+			<search position="replace" error="log"><![CDATA[// Column]]></search>
+			<add><![CDATA[$_['text_moneytofree']             = '<span class="money2free"><span class="money2freemain">Only <span class="amount4free">%s</span> (+VAT) more to Free Shipping!</span><br /></span>';
+
+// Column]]></add>
+		</operation>
+	</file>
+	<file name="catalog/controller/checkout/cart.php">
+		<operation>
+			<search position="replace" error="log"><![CDATA[$this->data['column_total'] = $this->language->get('column_total');]]></search>
+			<add><![CDATA[$this->data['column_total'] = $this->language->get('column_total');
+
+if ($this->cart->getSubTotal() < $this->config->get('free_total')) {
+			$freemoney = $this->config->get('free_total') - $this->cart->getSubTotal();
+			$this->data['moneytofree'] = sprintf($this->language->get('text_moneytofree'), $this->currency->format($freemoney));
+		}]]></add>
+		</operation>
+	</file>
+</modification>
