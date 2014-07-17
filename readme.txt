@@ -3,7 +3,7 @@
 Purpose
 =======
 
-This is a poweful upselling tool.
+This is a powerful upselling tool.
 
 When the customer visits his/her shopping cart page, this extension adds the message "Only $x (+VAT) more to Free Shipping!" above their products, thus luring them to buy more in order to benefit from free shipping.
 
